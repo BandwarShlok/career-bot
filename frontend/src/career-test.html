@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Test</title>
+  <link rel="icon" type="image/x-icon" href="image/Logo.jpg">
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      background: #eef2ff;
+      padding: 40px;
+    }
+    .container {
+      max-width: 800px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #0e21fc;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f7f9ff;
+      border-left: 5px solid #0e21fc;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #0e21fc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .result {
+      margin-top: 30px;
+      background: #f1f4ff;
+      padding: 20px;
+      display: none;
+      border-left: 5px solid #0e21fc;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 id="title">Career Test</h1>
+
+  <form id="testForm"></form>
+
+  <button onclick="submitTest()">Submit Test</button>
+
+  <div class="result" id="resultBox">
+    <h2>Result</h2>
+    <p id="resultText"></p>
+  </div>
+</div>
+
+<script>
+  // 🔒 Login check
+  const userId = localStorage.getItem("userId");
+  if (!userId) {
+    alert("Please login first");
+    window.location.href = "login.html";
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const career = params.get("career");
+
+  const questions = {
+    "data-science": [
+      "Do you enjoy working with data?",
+      "Are you comfortable with statistics?",
+      "Do you like Python?",
+      "Interested in ML models?",
+      "Can you analyze patterns?"
+    ],
+    "cyber-security": [
+      "Interested in hacking?",
+      "Do you like networking?",
+      "Can you think like an attacker?",
+      "Interested in system security?",
+      "Can you analyze vulnerabilities?"
+    ],
+    "cloud": [
+      "Interested in servers?",
+      "Do you like scalability?",
+      "Know AWS/Azure basics?",
+      "Comfortable with DevOps?",
+      "Interested in cloud architecture?"
+    ],
+    "dsa": [
+      "Do you enjoy problem solving?",
+      "Interested in algorithms?",
+      "Comfortable with coding?",
+      "Like competitive programming?",
+      "Strong logic skills?"
+    ],
+    "ai-ml": [
+      "Interested in AI?",
+      "Like math & logic?",
+      "Comfortable with Python?",
+      "Interested in neural networks?",
+      "Like automation?"
+    ],
+    "blockchain": [
+      "Interested in crypto?",
+      "Understand decentralization?",
+      "Like smart contracts?",
+      "Comfortable with security?",
+      "Interested in Web3?"
+    ],
+    "app-dev": [
+      "Interested in mobile apps?",
+      "Like UI development?",
+      "Comfortable with Java/Kotlin?",
+      "Like user experience?",
+      "Interested in Play Store apps?"
+    ],
+    "ui-ux": [
+      "Creative mindset?",
+      "Interested in design?",
+      "Like user psychology?",
+      "Comfortable with tools?",
+      "Interested in aesthetics?"
+    ]
+  };
+
+  if (!questions[career]) {
+    alert("Invalid career selected");
+    window.location.href = "test.html";
+  }
+
+  document.getElementById("title").innerText =
+    career.replace("-", " ").toUpperCase() + " TEST";
+
+  const form = document.getElementById("testForm");
+
+  questions[career].forEach((q, i) => {
+    form.innerHTML += `
+      <div class="question">
+        <p>${i + 1}. ${q}</p>
+        <label><input type="radio" name="q${i}" value="3"> Yes</label><br>
+        <label><input type="radio" name="q${i}" value="2"> Maybe</label><br>
+        <label><input type="radio" name="q${i}" value="1"> No</label>
+      </div>
+    `;
+  });
+
+  async function submitTest() {
+    let score = 0;
+
+    for (let i = 0; i < questions[career].length; i++) {
+      const ans = document.querySelector(`input[name="q${i}"]:checked`);
+      if (!ans) {
+        alert("Please answer all questions");
+        return;
+      }
+      score += parseInt(ans.value);
+    }
+
+    const percent = Math.round((score / (questions[career].length * 3)) * 100);
+
+    document.getElementById("resultBox").style.display = "block";
+    document.getElementById("resultText").innerText =
+      `You scored ${percent}% in ${career.replace("-", " ")}`;
+
+    // SAVE TO DATABASE
+    await fetch("http://localhost:5000/save-test", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId,
+        testName: career,
+        score: percent
+      })
+    });
+  }
+</script>
+
+</body>
+</html>

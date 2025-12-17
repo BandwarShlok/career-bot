@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Counselling Session</title>
+<link rel="icon" type="image/x-icon" href="image/Logo.jpg">
+  <style>
+    body {
+      background: #eef1ff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 3px 12px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #3f51b5;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #3f51b5;
+      color: white;
+      font-size: 17px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #303f9f;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Book Your Counselling Session</h2>
+
+    <!-- SHOW SELECTED PLAN -->
+    <p><strong>Selected Plan:</strong> <span id="planDisplay"></span></p>
+
+    <!-- Counselling Form -->
+    <form id="counsellingForm">
+      
+      <input type="hidden" id="planInput">
+      <input type="hidden" id="priceInput">
+
+      <label>Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+
+      <label>Phone Number</label>
+      <input type="text" id="phone" placeholder="Enter your phone number" required>
+
+      <label>Your Message</label>
+      <textarea id="message" placeholder="Tell us about your goals..."></textarea>
+
+      <button type="submit" onsubmit="bookPlan(event)" class="submit-btn">Submit</button>
+    </form>
+  </div>
+
+  <script>
+  // Read plan & price from URL
+  const params = new URLSearchParams(window.location.search);
+  const plan = params.get("plan");
+  const price = params.get("price");
+
+  document.getElementById("planDisplay").innerText =
+    `${plan} — ₹${price}`;
+
+  // Attach ONE submit handler
+  document.getElementById("counsellingForm")
+    .addEventListener("submit", async function (event) {
+
+    event.preventDefault(); // 🔥 stop form reload
+
+    const userId = localStorage.getItem("userId");
+    console.log("FRONTEND userId:", userId);
+
+    if (!userId) {
+      alert("Please login first");
+      window.location.href = "login.html";
+      return;
+    }
+
+    const fullname = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const message = document.getElementById("message").value;
+
+    const response = await fetch("http://localhost:5000/counselling", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId,
+        fullname,
+        email,
+        phone,
+        message,
+        plan,
+        price: Number(price)
+      })
+    });
+
+    const data = await response.json();
+    alert(data.message);
+    document.getElementById("counsellingForm").reset();
+  });
+  
+</script>
+
+</body>
+</html>

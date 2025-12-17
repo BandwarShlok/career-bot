@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Options - Career Compass</title>
+  <link rel="icon" type="image/x-icon" href="image/Logo.jpg">
+  <!-- Google Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f4f6ff;
+      color: #222;
+    }
+
+    /* Navbar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: #0e21fc;
+    }
+
+    .logo img {
+      height: 70px;
+      width: 70px;
+      border-radius: 6px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      margin-left: 25px;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .logout-btn {
+      margin-left: 25px;
+      padding: 8px 18px;
+      background: white;
+      color: #0e21fc;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid white;
+    }
+
+    /* Search Section */
+    .search-section {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      width: 60%;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 15px 50px;
+      font-size: 18px;
+      border-radius: 50px;
+      border: 2px solid #0e21fc;
+      transition: 0.3s;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 26px;
+      color: #0e21fc;
+      transition: 0.4s;
+    }
+
+    .search-wrapper:focus-within .search-icon {
+      left: calc(100% - 45px);
+    }
+
+    /* Cards Grid */
+    .card-grid {
+      padding: 50px 120px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    /* NEW BEAUTIFUL CARD */
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 25px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.07);
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border: 1px solid #e0e6ff;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      border-color: #0e21fc;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0e21fc;
+    }
+
+    .card-desc {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .card button {
+      align-self: flex-start;
+      margin-top: 10px;
+      padding: 10px 18px;
+      background: #0e21fc;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .card button:hover {
+      background: #4455ff;
+    }
+
+    @media(max-width: 900px) {
+      .card-grid {
+        padding: 40px 20px;
+      }
+
+      .search-wrapper {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <div class="logo">
+      <img src="image/Logo.jpg" alt="">
+    </div>
+
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="test.html">Test</a>
+      <a href="about.html">About</a>
+      <button class="logout-btn">Logout</button>
+    </nav>
+  </header>
+
+  <!-- SEARCH BAR -->
+  <section class="search-section">
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Search careers..." onkeyup="searchCards()">
+      <span class="material-icons search-icon">search</span>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="card-grid">
+
+    <div class="card">
+      <div class="card-title">Web Development</div>
+      <div class="card-desc">Build dynamic websites and web apps using HTML, CSS, JS and frameworks.</div>
+      <button onclick="window.location.href='webtest.html'">Test</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Data Science</div>
+      <div class="card-desc">Analyze data, build models, and work with Python, ML, AI tools.</div>
+      <button onclick="location.href='career-test.html?career=data-science'">Test</button>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">Cyber Security</div>
+      <div class="card-desc">Protect systems, networks and ethically hack vulnerabilities.</div>
+      <button onclick="location.href='career-test.html?career=cyber-security'">Test</button>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">Cloud Computing</div>
+      <div class="card-desc">Work with AWS, Azure, GCP for scalable backend services.</div>
+      <button onclick="location.href='career-test.html?career=cloud'">Test</button>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">DSA</div>
+      <div class="card-desc">Master Data Structures & Algorithms for placements.</div>
+      <button onclick="location.href='career-test.html?career=dsa'">Test</button>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">AI & ML</div>
+      <div class="card-desc">Learn Machine Learning, Deep Learning and Neural Networks.</div>
+      <button onclick="location.href='career-test.html?career=ai-ml'">Test</button>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">Blockchain</div>
+      <div class="card-desc">Create decentralized apps and understand crypto technology.</div>
+      <button onclick="location.href='career-test.html?career=blockchain'">Test</button>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">App Development</div>
+      <div class="card-desc">Build Android/iOS apps using Flutter, Java, Kotlin or React Native.</div>
+      <button onclick="location.href='career-test.html?career=app-dev'">Test</button>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">UI / UX Design</div>
+      <div class="card-desc">Design clean, beautiful and user-friendly interfaces.</div>
+      <button onclick="location.href='career-test.html?career=ui-ux'">Test</button>
+
+    </div>
+
+  </section>
+
+  <!-- Search Function JS -->
+  <script>
+    // Stop if user not logged in
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      alert("Please login first");
+      window.location.href = "login.html";
+    }
+
+    // Call this when test finishes
+    async function submitTest(score) {
+
+      fetch("http://localhost:5000/save-test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: userId,
+          testName: "Web Development Test",
+          score: score
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+        })
+        .catch(err => {
+          alert("Error saving test");
+          console.log(err);
+        });
+    }
+  </script>
+
+</body>
+
+</html>

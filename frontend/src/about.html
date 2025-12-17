@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About • Career Bot</title>
+  <link rel="icon" type="image/x-icon" href="image/Logo.jpg">
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins, sans-serif;
+}
+
+body {
+  background: #f3f5ff;
+  color: #222;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 40px 20px;
+  background: #4455ff;
+  color: white;
+}
+
+header h1 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+header p {
+  font-size: 18px;
+  margin-top: 8px;
+}
+
+/* About Section */
+.about-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px;
+  gap: 40px;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text h2 {
+  font-size: 30px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.about-text p {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.about-image img {
+  width: 320px;
+  filter: drop-shadow(0 5px 20px rgba(0,0,0,0.15));
+}
+
+/* Features */
+.features {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.features-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  padding: 0 40px;
+}
+
+.feature-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: 0.3s;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+}
+
+.feature-card img {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  color: #555;
+  font-size: 15px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background: #222;
+  color: white;
+  margin-top: 40px;
+}
+
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1>Career Bot</h1>
+    <p>Your trusted AI assistant for career guidance.</p>
+  </header>
+
+  <!-- MAIN ABOUT SECTION -->
+  <section class="about-section">
+    <div class="about-text">
+      <h2>About Us</h2>
+      <p>
+        Career Bot is a smart and interactive AI-powered assistant designed to help
+        students and professionals find the right career path. We aim to make career
+        decision-making easier by offering personalized guidance, resume building,
+        interview preparation, and much more.
+      </p>
+      <p>
+        Our mission is to create an intelligent platform that supports users at every
+        stage of their career journey—from selecting a field, building a resume, to
+        applying for jobs confidently.
+      </p>
+    </div>
+
+    <div class="about-image">
+      <img src="https://cdn-icons-png.flaticon.com/512/4661/4661318.png" alt="Career Bot Illustration">
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="features">
+    <h2>Why Choose Career Bot?</h2>
+
+    <div class="features-container">
+
+      <div class="feature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="">
+        <h3>AI Career Guidance</h3>
+        <p>Get personalized suggestions based on your skills and interests.</p>
+      </div>
+
+      <div class="feature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1711/1711715.png" alt="">
+        <h3>Resume Builder</h3>
+        <p>Create professional resumes easily using our modern tools.</p>
+      </div>
+
+      <div class="feature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="">
+        <h3>Skill Assessment</h3>
+        <p>Improve your skills with interactive quizzes and rating tools.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Career Bot. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Counselling - Career Compass</title>
+<link rel="icon" type="image/x-icon" href="image/Logo.jpg">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef1ff;
+    }
+
+    /* Header */
+    .header {
+      background: #3f51b5;
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .sub {
+      text-align: center;
+      color: white;
+      margin-top: -30px;
+      font-size: 14px;
+    }
+
+    /* Section Title */
+    h2.section-title {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 22px;
+      color: #222;
+    }
+
+    /* Services Cards */
+    .services {
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .service-card {
+      background: white;
+      width: 260px;
+      padding: 25px;
+      text-align: center;
+      border-radius: 15px;
+      box-shadow: 0px 3px 10px rgba(0,0,0,0.15);
+    }
+
+    .service-card img {
+      width: 60px;
+      margin-bottom: 15px;
+    }
+
+    .service-card h3 {
+      margin: 10px 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Plans Section */
+    .plans {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 35px;
+      flex-wrap: wrap;
+    }
+
+    .plan-card {
+      background: white;
+      width: 260px;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .plan-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #222;
+    }
+
+    .price {
+      font-size: 30px;
+      color: #3f51b5;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .plan-card p {
+      font-size: 14px;
+      margin: 6px 0;
+    }
+
+    button.buy-btn {
+      background: #3f51b5;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 7px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button.buy-btn:hover {
+      background: #303f9f;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">Career Counselling</div>
+  <p class="sub">Get expert guidance to choose the right path for your future.</p>
+
+  <!-- Services Section -->
+  <h2 class="section-title">Our Counselling Services</h2>
+
+  <div class="services">
+    <div class="service-card">
+      <img src="image/assesment.png" alt="Career Assessment" />
+      <h3>Career Assessment</h3>
+      <p>Understand your strengths, interests and get tailored recommendations.</p>
+    </div>
+
+    <div class="service-card">
+      <img src="image/Guidance.png" alt="One-on-One Guidance" />
+      <h3>One-on-One Guidance</h3>
+      <p>Get a personalised session with our experts.</p>
+    </div>
+
+    <div class="service-card">
+      <img src="image/Roadmap.png" alt="Career Roadmap" />
+      <h3>Career Roadmap</h3>
+      <p>Get a detailed step-by-step plan for your career growth.</p>
+    </div>
+  </div>
+
+  <!-- Plans Section -->
+  <h2 class="section-title">Our Counselling Plans</h2>
+
+  <div class="plans">
+    <div class="plan-card">
+      <div class="plan-title">Basic Plan</div>
+      <div class="price">₹499</div>
+      <p>✔ 30-Min Counselling</p>
+      <p>✔ Career Interest Analysis</p>
+      <p>✔ Basic Report</p>
+      <button class="buy-btn" onclick="goToForm('Basic Plan',499)">Buy Now</button>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-title">Premium Plan</div>
+      <div class="price">₹999</div>
+      <p>✔ 60-Min Expert Counselling</p>
+      <p>✔ Personality Assessment</p>
+      <p>✔ Full Career Roadmap</p>
+      <p>✔ Priority Support</p>
+      <button class="buy-btn" onclick="goToForm('Premium Plan',999)">Buy Now</button>
+    </div>
+  </div>
+
+  <script>
+    function goToForm(plan, price) {
+      window.location.href = `form.html?plan=${encodeURIComponent(plan)}&price=${price}`;
+    }
+    if (!localStorage.getItem("userId")) {
+  window.location.href = "login.html";
+}
+
+  </script>
+
+</body>
+</html>

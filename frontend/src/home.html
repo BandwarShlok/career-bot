@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Compass</title>
+  <link rel="icon" type="image/x-icon" href="image/Logo.jpg">
+
+  <style>
+    /* ===== BASE STYLES (UNCHANGED STRUCTURE) ===== */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6ff;
+    }
+
+    header {
+      background: #0e21fc;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    header nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    header button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 60px 80px;
+      background: #fff;
+    }
+
+    .hero-text h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .hero-text button {
+      padding: 12px 24px;
+      background: #0e21fc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .image-placeholder {
+      width: 280px;
+      background: #f8f9ff;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      animation: fadeUp 0.6s ease forwards;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .image-placeholder:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 35px rgba(14, 33, 252, 0.2);
+    }
+
+    .cards {
+      display: flex;
+      justify-content: space-around;
+      padding: 40px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      width: 22%;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 35px rgba(14, 33, 252, 0.15);
+    }
+
+    .card button {
+      margin-top: 10px;
+      padding: 10px;
+      background: #0e21fc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .card button:hover {
+      background: #0b1acc;
+      transform: scale(1.05);
+    }
+
+    /* ===== WELCOME + STATS ===== */
+    .welcome-title {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0e21fc;
+    }
+
+    .welcome-subtitle {
+      margin: 6px 0 16px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .stat-item:hover {
+      background: #eef1ff;
+      transform: translateX(4px);
+    }
+
+    .stat-item strong {
+      color: #0e21fc;
+      font-size: 15px;
+    }
+
+    .stat-icon {
+      margin-right: 8px;
+      transition: transform 0.2s ease;
+    }
+
+    .stat-item:hover .stat-icon {
+      transform: scale(1.1);
+    }
+
+    .dashboard-link {
+      cursor: pointer;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <img src="image/Logo.jpg" height="50">
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="test.html">Test</a>
+    <a href="about.html">About</a>
+    <button onclick="logout()">Logout</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Career Bot</h1>
+    <p>Find the right career path for you</p>
+    <button>Get started</button>
+  </div>
+
+  <!-- CLICKABLE WELCOME + STATS -->
+  <div class="image-placeholder dashboard-link" onclick="openDashboard()">
+    <h3 id="welcomeText" class="welcome-title">Welcome</h3>
+    <p class="welcome-subtitle">Your career dashboard is ready</p>
+
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-icon">📘</span>
+        <span>Tests Taken</span>
+        <strong id="testsCount">0</strong>
+      </div>
+
+      <div class="stat-item">
+        <span class="stat-icon">🏆</span>
+        <span>Best Score</span>
+        <strong id="bestScore">0%</strong>
+      </div>
+
+      <div class="stat-item">
+        <span class="stat-icon">📄</span>
+        <span>Plans Booked</span>
+        <strong id="plansCount">0</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cards">
+  <div class="card">
+    <h3>Career Talk</h3>
+    <p>Take guided assessments to discover your ideal profession.</p>
+    <button>Talk</button>
+  </div>
+
+  <div class="card">
+    <h3>Resume Builder</h3>
+    <p>Create a professional resume tailored to your goals.</p>
+    <button>Build</button>
+  </div>
+
+  <div class="card">
+    <h3>Counseling Sessions</h3>
+    <p>Get one-on-one expert advice for your career journey.</p>
+    <button>Join</button>
+  </div>
+</section>
+
+<script>
+  const userId = localStorage.getItem("userId");
+
+  if (!userId) {
+    window.location.href = "login.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("userId");
+    window.location.href = "loginPage.html";
+  }
+
+  function openDashboard() {
+    window.location.href = "dashboard.html";
+  }
+
+  // Load user name
+  fetch(`http://localhost:5000/user/${userId}`)
+    .then(res => res.json())
+    .then(user => {
+      document.getElementById("welcomeText").innerText =
+        "Welcome, " + user.name;
+    });
+
+  // Load test stats
+  fetch(`http://localhost:5000/my-tests/${userId}`)
+    .then(res => res.json())
+    .then(tests => {
+      document.getElementById("testsCount").innerText = tests.length;
+      if (tests.length > 0) {
+        const best = Math.max(...tests.map(t => t.score));
+        document.getElementById("bestScore").innerText = best + "%";
+      }
+    });
+
+  // Load plan stats
+  fetch(`http://localhost:5000/my-plans/${userId}`)
+    .then(res => res.json())
+    .then(plans => {
+      document.getElementById("plansCount").innerText = plans.length;
+    });
+</script>
+
+</body>
+</html>

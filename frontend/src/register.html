@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Career Compass</title>
+  <link rel="icon" type="image/x-icon" href="image/Logo.jpg">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f6f6f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      width: 420px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+    }
+
+    .logo img {
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 26px;
+      color: #222;
+    }
+
+    p.subtitle {
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4455ff;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0e21fc;
+    }
+
+    .links {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .links a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img height="100" width="100" src="image/Logo.jpg" alt="Logo">
+    </div>
+
+    <h1>Create Account</h1>
+    <p class="subtitle">Join Career Compass to find your ideal career</p>
+
+    <!-- Manual Registration Form -->
+    <form onsubmit="registerUser(event)">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Register</button>
+    </form>
+
+    <p class="links">
+      Already have an account? <a href="LoginPage.html">Login here</a>
+    </p>
+  </div>
+
+
+  <script>
+    async function registerUser(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!name || !email || !password) {
+        alert("All fields are required.");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://127.0.0.1:5000/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+        alert(data.message);
+
+        if (data.user) {
+          window.location.href = "LoginPage.html"; 
+        }
+
+      } catch (err) {
+        console.error("Registration Error:", err);
+        alert("Registration failed, try again!");
+      }
+    }
+  </script>
+
+</body>
+</html>

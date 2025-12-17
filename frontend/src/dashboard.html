@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="image/Logo.jpg">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6ff;
+      padding: 20px;
+    }
+    h2 {
+      color: #0e21fc;
+      margin-top: 30px;
+    }
+    table {
+      width: 100%;
+      background: #fff;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #0e21fc;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>My Dashboard</h1>
+
+<!-- TEST RESULTS -->
+<h2>My Test Results</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Test Name</th>
+      <th>Score (%)</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody id="testResults"></tbody>
+</table>
+
+<!-- PLANS -->
+<h2>My Booked Plans</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Plan Name</th>
+      <th>Price (₹)</th>
+      <th>Status</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody id="plans"></tbody>
+</table>
+
+<script>
+  const userId = localStorage.getItem("userId");
+
+  if (!userId) {
+    alert("Please login first");
+    window.location.href = "login.html";
+  }
+
+  /* ===== LOAD TEST RESULTS ===== */
+  fetch(`http://localhost:5000/my-tests/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      const table = document.getElementById("testResults");
+      data.forEach(t => {
+        table.innerHTML += `
+          <tr>
+            <td>${t.testName}</td>
+            <td>${t.score}</td>
+            <td>${new Date(t.date).toLocaleDateString()}</td>
+          </tr>
+        `;
+      });
+    });
+
+  /* ===== LOAD PLANS ===== */
+  fetch(`http://localhost:5000/my-plans/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      const table = document.getElementById("plans");
+      data.forEach(p => {
+        table.innerHTML += `
+          <tr>
+            <td>${p.plan}</td>
+            <td>${p.price}</td>
+            <td>${p.paymentStatus || "PAID"}</td>
+            <td>${new Date(p.createdAt).toLocaleDateString()}</td>
+          </tr>
+        `;
+      });
+    });
+</script>
+
+</body>
+</html>
