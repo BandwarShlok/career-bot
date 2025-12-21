@@ -16,11 +16,7 @@ async function loginUser(event) {
     console.log("LOGIN RESPONSE:", data);
 
     if (response.ok && data.user && data.user._id) {
-
-      // ✅ SAVE USER ID (MOST IMPORTANT)
       localStorage.setItem("userId", data.user._id);
-
-      alert("Login successful");
       window.location.href = "home.html";
     } else {
       alert(data.message || "Login failed");
@@ -33,26 +29,31 @@ async function loginUser(event) {
 }
 
 /* ---------------- GOOGLE LOGIN ---------------- */
-function handleGoogleLogin(response) {
+/* MUST be global */
+window.handleGoogleLogin = async function (response) {
+  try {
+    const res = await fetch("http://localhost:5000/google-login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
 
-  fetch("http://localhost:5000/google-login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ credential: response.credential })
-  })
-  .then(res => res.json())
-  .then(data => {
+      // ✅ FIX: send `token`, not `credential`
+      body: JSON.stringify({
+        token: response.credential
+      })
+    });
+
+    const data = await res.json();
     console.log("GOOGLE LOGIN RESPONSE:", data);
 
     if (data.user && data.user._id) {
-
-      // ✅ SAVE USER ID
       localStorage.setItem("userId", data.user._id);
-
       window.location.href = "home.html";
     } else {
       alert("Google login failed");
     }
-  })
-  .catch(err => console.error(err));
-}
+
+  } catch (err) {
+    console.error("GOOGLE LOGIN ERROR:", err);
+    alert("Server error");
+  }
+};

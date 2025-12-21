@@ -98,14 +98,23 @@
     <p>or</p>
 
     <!-- GOOGLE LOGIN -->
-    <div id="g_id_onload"
-         data-client_id="893185406114-bihm2bqb7pcpp44qhbjonsi7rk0uqjek.apps.googleusercontent.com"
-         data-callback="handleGoogleLogin">
-    </div>
+<div id="g_id_onload"
+     data-client_id="893185406114-bihm2bqb7pcpp44qhbjonsi7rk0uqjek.apps.googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-callback="handleGoogleLogin"
+     data-auto_prompt="false">
+</div>
 
-    <div class="g_id_signin"></div>
+<div class="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="continue_with"
+     data-size="large"
+     data-logo_alignment="left">
+</div>
 
-  </div>
 
   <!-- ONLY ONE JS FILE -->
   <script src="components/login.js"></script>

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const TestResultSchema = new mongoose.Schema({
+const testResultSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -20,4 +20,4 @@ const TestResultSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model("TestResult", TestResultSchema);
+export default mongoose.model("TestResult", testResultSchema);
