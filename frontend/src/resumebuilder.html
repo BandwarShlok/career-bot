@@ -2,285 +2,350 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Resume Builder</title>
+<title>Resume Builder | Career Compass</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/x-icon" href="image/Logo.jpg">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #eef2f3;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        gap: 20px;
-    }
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:#f4f6fb}
 
-    .container {
-        width: 45%;
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+/* HEADER (UNCHANGED) */
+header{
+  background:#0e21fc;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:#fff
+}
+header nav a{
+  color:#fff;
+  margin:0 15px;
+  text-decoration:none;
+  font-weight:bold
+}
+header button{
+  padding:8px 16px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold
+}
 
-    h2 {
-        margin-top: 0;
-        color: white;
-    }
-    h1{
-        margin-top: 0;
-        color: #396ff7
-    }
+/* LAYOUT */
+.container{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  padding:25px
+}
+.card{
+  background:#fff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08)
+}
+h2{margin-top:0;color:#142bff}
+h3{margin-top:20px}
 
-    input, textarea, select {
-        width: 100%;
-        padding: 8px;
-        margin: 5px 0 15px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
+label{font-size:14px;margin-top:12px;display:block}
+input,textarea,select{
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border-radius:6px;
+  border:1px solid #ccc
+}
+textarea{resize:none;height:90px}
 
-    button {
-        padding: 10px 15px;
-        border: none;
-        background: #0077b6;
-        color: white;
-        border-radius: 6px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
+.btn{
+  margin-top:12px;
+  background:#142bff;
+  color:#fff;
+  border:none;
+  padding:10px 16px;
+  border-radius:6px;
+  cursor:pointer
+}
 
-    .remove-btn {
-        background: #d62828;
-        margin-top: 5px;
-    }
+.block{
+  border:1px dashed #ccc;
+  padding:10px;
+  margin-top:10px;
+  border-radius:6px;
+  position:relative
+}
+.remove{
+  position:absolute;
+  top:6px;
+  right:6px;
+  background:#dc3545;
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  width:22px;
+  height:22px;
+  cursor:pointer
+}
 
-    .preview-container {
-        width: 50%;
-        background: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+/* PREVIEW */
+#resume-preview{
+  width:210mm;
+  min-height:297mm;
+  background:#fff;
+  padding:30px;
+  margin:auto
+}
+.preview-header{
+  background:#142bff;
+  color:#fff;
+  padding:20px;
+  border-radius:8px
+}
+.preview-section{margin-top:18px}
+.preview-section h3{
+  border-bottom:1px solid #ddd;
+  padding-bottom:4px
+}
+ul{padding-left:18px}
 
-    .resume-header {
-        background: #1b263b;
-        color: white;
-        padding: 15px;
-        border-radius: 10px;
-        text-align: center;
-    }
-
-    .section {
-        margin-top: 20px;
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 10px;
-    }
-
-    .item {
-        margin-bottom: 15px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .stars {
-        color: #f4b400;
-        font-size: 18px;
-        margin-top: 5px;
-    }
+@media(max-width:1000px){
+  .container{grid-template-columns:1fr}
+}
 </style>
 </head>
+
 <body>
 
-<!-- FORM -->
+<header>
+  <img src="image/Logo.jpg" height="50">
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="test.html">Test</a>
+    <a href="about.html">About</a>
+    <button onclick="logout()">Logout</button>
+  </nav>
+</header>
+
 <div class="container">
-    <h1>Resume Builder</h1>
 
-    <label>Name</label>
-    <input type="text" id="name">
+<!-- ================= FORM ================= -->
+<div class="card">
+<h2>Resume Builder</h2>
 
-    <label>Email</label>
-    <input type="text" id="email">
+<label>Name</label>
+<input id="name" oninput="update()">
 
-    <label>Phone</label>
-    <input type="text" id="phone">
+<label>Email</label>
+<input id="email" oninput="update()">
 
-    <!-- EDUCATION -->
+<label>Phone</label>
+<input id="phone" oninput="update()">
+
+<label>Professional Summary</label>
+<textarea id="summary" oninput="update()"></textarea>
+
+<h3>Education</h3>
+<div id="edu"></div>
+<button class="btn" onclick="addEducation()">+ Add Education</button>
+
+<h3>Experience</h3>
+<div id="exp"></div>
+<button class="btn" onclick="addExperience()">+ Add Experience</button>
+
+<h3>Projects</h3>
+<div id="projects"></div>
+<button class="btn" onclick="addProject()">+ Add Project</button>
+
+<h3>Certificates</h3>
+<div id="certs"></div>
+<button class="btn" onclick="addCert()">+ Add Certificate</button>
+
+<h3>Skills</h3>
+<div id="skills"></div>
+<button class="btn" onclick="addSkill()">+ Add Skill</button>
+
+<button class="btn" onclick="downloadPDF()">Download PDF</button>
+</div>
+
+<!-- ================= PREVIEW ================= -->
+<div class="card">
+<div id="resume-preview">
+
+  <div class="preview-header">
+    <h1 id="p-name">Your Name</h1>
+    <div id="p-contact">Email | Phone</div>
+  </div>
+
+  <div class="preview-section">
+    <h3>Summary</h3>
+    <p id="p-summary"></p>
+  </div>
+
+  <div class="preview-section">
     <h3>Education</h3>
-    <div id="education-list"></div>
-    <button onclick="addEducation()">+ Add Education</button>
+    <ul id="p-edu"></ul>
+  </div>
 
-    <!-- EXPERIENCE -->
+  <div class="preview-section">
     <h3>Experience</h3>
-    <div id="experience-list"></div>
-    <button onclick="addExperience()">+ Add Experience</button>
+    <ul id="p-exp"></ul>
+  </div>
 
-    <!-- SKILLS -->
+  <div class="preview-section">
+    <h3>Projects</h3>
+    <ul id="p-projects"></ul>
+  </div>
+
+  <div class="preview-section">
+    <h3>Certificates</h3>
+    <ul id="p-certs"></ul>
+  </div>
+
+  <div class="preview-section">
     <h3>Skills</h3>
-    <div id="skill-list"></div>
-    <button onclick="addSkill()">+ Add Skill</button>
+    <ul id="p-skills"></ul>
+  </div>
 
-    <br><br>
-    <button onclick="generateResume()">Preview Resume</button>
-    <button onclick="downloadPDF()">Download PDF</button>
+</div>
 </div>
 
-
-<!-- PREVIEW -->
-<div class="preview-container" id="resume-preview">
-    <div class="resume-header">
-        <h2>Your Name</h2>
-        <p>Email | Phone</p>
-    </div>
-
-    <div class="section">
-        <h3>Education</h3>
-        <div id="education-preview"></div>
-    </div>
-
-    <div class="section">
-        <h3>Experience</h3>
-        <div id="experience-preview"></div>
-    </div>
-
-    <div class="section">
-        <h3>Skills</h3>
-        <div id="skill-preview"></div>
-    </div>
 </div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
 <script>
+const $ = id => document.getElementById(id);
 
-// ---------------- ADD EDUCATION ----------------
-function addEducation() {
-    const div = document.createElement("div");
-    div.className = "item edu-item";
-    div.innerHTML = `
-        <label>Degree / Course</label>
-        <input class="edu-degree" placeholder="B.Tech CSE">
-
-        <label>School / College</label>
-        <input class="edu-school" placeholder="XYZ University">
-
-        <label>Percentage / CGPA</label>
-        <input class="edu-percentage" placeholder="85%">
-
-        <label>Year</label>
-        <input type="text" class="edu-year" placeholder="2020">
-
-        <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
-    `;
-    document.getElementById("education-list").appendChild(div);
+function update(){
+  $("p-name").innerText = $("name").value || "Your Name";
+  $("p-contact").innerText =
+    ($("email").value || "Email") + " | " + ($("phone").value || "Phone");
+  $("p-summary").innerText = $("summary").value || "";
+  render();
 }
 
-// ---------------- ADD EXPERIENCE ----------------
-function addExperience() {
-    const div = document.createElement("div");
-    div.className = "item exp-item";
-    div.innerHTML = `
-        <label>Job Title</label>
-        <input class="exp-title" placeholder="Software Developer">
-
-        <label>Company</label>
-        <input class="exp-company" placeholder="Google">
-
-        <label>From</label>
-        <input type="date" class="exp-from">
-
-        <label>To</label>
-        <input type="date" class="exp-to">
-
-        <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
-    `;
-    document.getElementById("experience-list").appendChild(div);
+/* EDUCATION */
+function addEducation(){
+  $("edu").insertAdjacentHTML("beforeend",`
+    <div class="block">
+      <button class="remove" onclick="this.parentElement.remove();render()">×</button>
+      <input placeholder="Degree" oninput="render()">
+      <input placeholder="Institute" oninput="render()">
+      <input placeholder="Year" oninput="render()">
+    </div>
+  `);
 }
 
-// ---------------- ADD SKILLS ----------------
-function addSkill() {
-    const div = document.createElement("div");
-    div.className = "item skill-item";
-
-    div.innerHTML = `
-        <label>Skill</label>
-        <input class="skill-name" placeholder="JavaScript">
-
-        <label>Rating</label>
-        <select class="skill-rating">
-            <option value="1">★☆☆☆☆</option>
-            <option value="2">★★☆☆☆</option>
-            <option value="3">★★★☆☆</option>
-            <option value="4">★★★★☆</option>
-            <option value="5">★★★★★</option>
-        </select>
-
-        <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
-    `;
-
-    document.getElementById("skill-list").appendChild(div);
+/* EXPERIENCE (POINT WISE) */
+function addExperience(){
+  $("exp").insertAdjacentHTML("beforeend",`
+    <div class="block">
+      <button class="remove" onclick="this.parentElement.remove();render()">×</button>
+      <input placeholder="Job Title" oninput="render()">
+      <input placeholder="Company" oninput="render()">
+      <input type="date" oninput="render()">
+      <input type="date" oninput="render()">
+      <textarea placeholder="One point per line" oninput="render()"></textarea>
+    </div>
+  `);
 }
 
-
-// ---------------- GENERATE PREVIEW ----------------
-function generateResume() {
-
-    // HEADER
-    document.querySelector(".resume-header h2").innerText = document.getElementById("name").value;
-    document.querySelector(".resume-header p").innerText =
-        document.getElementById("email").value + " | " + document.getElementById("phone").value;
-
-    // EDUCATION
-    let eduHTML = "";
-    document.querySelectorAll(".edu-item").forEach(item => {
-        eduHTML += `
-            <div class="item">
-                <p><b>${item.querySelector(".edu-degree").value}</b> — 
-                ${item.querySelector(".edu-school").value} (${item.querySelector(".edu-year").value})</p>
-                <p><b>Percentage:</b> ${item.querySelector(".edu-percentage").value}</p>
-            </div>`;
-    });
-    document.getElementById("education-preview").innerHTML = eduHTML;
-
-    // EXPERIENCE
-    let expHTML = "";
-    document.querySelectorAll(".exp-item").forEach(item => {
-        expHTML += `
-            <div class="item">
-                <p><b>${item.querySelector(".exp-title").value}</b> — 
-                ${item.querySelector(".exp-company").value}</p>
-                <p>${item.querySelector(".exp-from").value} to ${item.querySelector(".exp-to").value}</p>
-            </div>`;
-    });
-    document.getElementById("experience-preview").innerHTML = expHTML;
-
-    // SKILLS
-    let skillHTML = "";
-    document.querySelectorAll(".skill-item").forEach(item => {
-        const name = item.querySelector(".skill-name").value;
-        const rating = item.querySelector(".skill-rating").value;
-
-        let stars = "★".repeat(rating) + "☆".repeat(5 - rating);
-
-        skillHTML += `
-            <div class="item">
-                <p><b>${name}</b></p>
-                <p class="stars">${stars}</p>
-            </div>`;
-    });
-
-    document.getElementById("skill-preview").innerHTML = skillHTML;
+/* PROJECTS */
+function addProject(){
+  $("projects").insertAdjacentHTML("beforeend",`
+    <div class="block">
+      <button class="remove" onclick="this.parentElement.remove();render()">×</button>
+      <input placeholder="Project Title" oninput="render()">
+      <textarea placeholder="One point per line" oninput="render()"></textarea>
+    </div>
+  `);
 }
 
-
-// ---------------- DOWNLOAD PDF ----------------
-function downloadPDF() {
-    const element = document.getElementById("resume-preview");
-    html2pdf().from(element).save("resume.pdf");
+/* CERTIFICATES */
+function addCert(){
+  $("certs").insertAdjacentHTML("beforeend",`
+    <div class="block">
+      <button class="remove" onclick="this.parentElement.remove();render()">×</button>
+      <input placeholder="Certificate Name" oninput="render()">
+      <input placeholder="Issued By / Year" oninput="render()">
+    </div>
+  `);
 }
 
+/* SKILLS */
+function addSkill(){
+  $("skills").insertAdjacentHTML("beforeend",`
+    <div class="block">
+      <button class="remove" onclick="this.parentElement.remove();render()">×</button>
+      <input placeholder="Skill" oninput="render()">
+      <select onchange="render()">
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+        <option>Expert</option>
+      </select>
+    </div>
+  `);
+}
+
+/* RENDER */
+function render(){
+
+  const mapList = (src, dst, fn) => {
+    $(dst).innerHTML="";
+    [...$(src).children].forEach(fn);
+  };
+
+  mapList("edu","p-edu",b=>{
+    const i=b.querySelectorAll("input");
+    if(i[0].value) $("p-edu").innerHTML+=`<li><b>${i[0].value}</b>, ${i[1].value} (${i[2].value})</li>`;
+  });
+
+  mapList("exp","p-exp",b=>{
+    const i=b.querySelectorAll("input");
+    const t=b.querySelector("textarea").value.split("\n").filter(x=>x);
+    if(i[0].value){
+      $("p-exp").innerHTML+=`
+        <li><b>${i[0].value}</b> – ${i[1].value}<br>
+        ${t.map(x=>`• ${x}`).join("<br>")}</li>`;
+    }
+  });
+
+  mapList("projects","p-projects",b=>{
+    const title=b.querySelector("input").value;
+    const t=b.querySelector("textarea").value.split("\n").filter(x=>x);
+    if(title) $("p-projects").innerHTML+=`<li><b>${title}</b><br>${t.map(x=>`• ${x}`).join("<br>")}</li>`;
+  });
+
+  mapList("certs","p-certs",b=>{
+    const i=b.querySelectorAll("input");
+    if(i[0].value) $("p-certs").innerHTML+=`<li>${i[0].value} – ${i[1].value}</li>`;
+  });
+
+  mapList("skills","p-skills",b=>{
+    const i=b.querySelector("input").value;
+    const l=b.querySelector("select").value;
+    if(i) $("p-skills").innerHTML+=`<li>${i} (${l})</li>`;
+  });
+}
+
+/* PDF */
+function downloadPDF(){
+  render();
+  html2pdf().from($("resume-preview")).set({
+    margin:0,
+    filename:"resume.pdf",
+    html2canvas:{scale:2},
+    jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}
+  }).save();
+}
+
+function logout(){
+  localStorage.removeItem("userId");
+  window.location.href="loginPage.html";
+}
 </script>
 
 </body>

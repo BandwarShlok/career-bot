@@ -62,7 +62,12 @@
       border: none;
       border-radius: 8px;
       font-size: 16px;
-      cursor: pointer;
+      cursor: pointer;      
+    }
+
+    .hero-text button:hover {
+      background: #0b1acc;
+      transform: scale(1.05);
     }
 
     .image-placeholder {
@@ -199,7 +204,7 @@
   <div class="hero-text">
     <h1>Career Bot</h1>
     <p>Find the right career path for you</p>
-    <button>Get started</button>
+    <button onclick="window.location.href='test.html'">Get started</button>
   </div>
 
   <!-- CLICKABLE WELCOME + STATS -->
@@ -233,19 +238,19 @@
   <div class="card">
     <h3>Career Talk</h3>
     <p>Take guided assessments to discover your ideal profession.</p>
-    <button>Talk</button>
+    <button onclick="window.location.href='bot.html'">Talk</button>
   </div>
 
   <div class="card">
     <h3>Resume Builder</h3>
     <p>Create a professional resume tailored to your goals.</p>
-    <button>Build</button>
+    <button onclick="window.location.href='resumebuilder.html'">Build</button>
   </div>
 
   <div class="card">
     <h3>Counseling Sessions</h3>
     <p>Get one-on-one expert advice for your career journey.</p>
-    <button>Join</button>
+    <button onclick="window.location.href='counselling.html'">Join</button>
   </div>
 </section>
 
@@ -253,7 +258,7 @@
   const userId = localStorage.getItem("userId");
 
   if (!userId) {
-    window.location.href = "login.html";
+    window.location.href = "loginPage.html";
   }
 
   function logout() {
