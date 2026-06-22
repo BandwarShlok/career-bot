@@ -32,22 +32,42 @@ const safeUser = (user) => ({
 app.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    if (!name || !email || !password)
+
+    if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields required" });
+    }
 
     const existing = await User.findOne({ email });
-    if (existing)
-      return res.status(400).json({ message: "User already exists" });
+
+    // ❗ FIX STARTS HERE
+    if (existing) {
+      // If user already registered normally
+      if (existing.password) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+
+      // If user exists via Google → set password now
+      existing.password = await bcrypt.hash(password, 10);
+      await existing.save();
+
+      return res.json({
+        message: "Registration completed",
+        user: safeUser(existing)
+      });
+    }
+    // ❗ FIX ENDS HERE
 
     const hashed = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hashed });
 
     res.json({ message: "Registration successful", user: safeUser(user) });
+
   } catch (err) {
     console.error("REGISTER ERROR:", err);
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 /* ================= LOGIN ================= */
 app.post("/login", async (req, res) => {
