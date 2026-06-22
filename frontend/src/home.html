@@ -255,11 +255,7 @@
 </section>
 
 <script>
-  const userId = localStorage.getItem("userId");
-
-  if (!userId) {
-    window.location.href = "loginPage.html";
-  }
+  
 
   function logout() {
     localStorage.removeItem("userId");
